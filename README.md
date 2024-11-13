@@ -8,9 +8,9 @@
 
 
 ## Technologies utilisées
-- **Back-end** : [Spring Boot](https://spring.io/projects/spring-boot) pour une API REST performante et sécurisée.
-- **Front-end** : [React](https://reactjs.org/) pour une interface utilisateur dynamique et responsive.
-- **Base de données** : [MongoDB](https://www.mongodb.com/) pour une gestion flexible et évolutive des données.
+- **Back-end** : [Spring Boot](https://spring.io/projects/spring-boot) .
+- **Front-end** : [React](https://reactjs.org/).
+- **Base de données** : [MongoDB](https://www.mongodb.com/) .
 
 ## Objectifs du projet
 - **Optimisation** : Centraliser les processus administratifs pour une gestion plus efficace des complexes sportifs.
