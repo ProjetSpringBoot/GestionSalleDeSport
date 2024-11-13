@@ -4,10 +4,8 @@
 
 ## Fonctionnalités clés
 - **Gestion des réservations** : Réservation de terrains et d'équipements sportifs.
-- **Suivi des abonnements** : Gestion des abonnements et des paiements des membres.
-- **Administration des horaires** : Organisation des horaires et des événements spéciaux.
-- **Notifications** : Système de notifications et rappels pour les utilisateurs.
-- **Tableau de bord** : Visualisation des statistiques d'utilisation.
+- **** : Gestion .
+
 
 ## Technologies utilisées
 - **Back-end** : [Spring Boot](https://spring.io/projects/spring-boot) pour une API REST performante et sécurisée.
