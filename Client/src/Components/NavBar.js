@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'ACCUEIL', href: '#' },
-    { name: 'NOS ESPACES', href: '#' },
-    { name: 'ACTIVITÉS', href: '#' },
-    { name: 'TARIFS', href: '#' },
-    { name: 'PLANNING', href: '#' },
-    { name: 'CONTACT', href: '#' }
+    { name: 'ACCUEIL', to: '/' },
+    { name: 'NOS ESPACES', to: '/nos-espaces' },
+    { name: 'ACTIVITÉS', to: '/activites' },
+    { name: 'TARIFS', to: '/tarifs' },
+    { name: 'PLANNING', to: '/planning' },
+    { name: 'CONTACT', to: '/ContactPage' }
   ];
 
   return (
@@ -30,12 +31,12 @@ const Navbar = () => {
             <ul className="flex space-x-8">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.to}
                     className="text-white hover:text-yellow-400 transition-colors duration-200 text-sm font-medium"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -62,13 +63,13 @@ const Navbar = () => {
             <ul className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.to}
                     className="text-white hover:text-yellow-400 block px-3 py-2 text-base font-medium transition-colors duration-200"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
