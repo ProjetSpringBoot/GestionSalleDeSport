@@ -1,9 +1,10 @@
 import React from 'react';
 import backgroundImage from '../drawable/Home.jpg'; // Correctly importing the background image
+import Navbar from './NavBar';
 
 const ProductCard = ({ 
-  title = "Dell Xtreme 270",
-  category = "Laptops",
+  title = "Gym",
+  category = "Cardio Workouts",
   price = 3999,
   rating = 4,
   maxRating = 5,
@@ -21,6 +22,9 @@ const ProductCard = ({
   };
 
   return (
+    <div>
+      <Navbar/>
+    
     <div style={{
       display: 'flex',
       justifyContent: 'center',
@@ -101,6 +105,8 @@ const ProductCard = ({
         </div>
       </div>
     </div>
+    </div>
+
   );
 };
 
