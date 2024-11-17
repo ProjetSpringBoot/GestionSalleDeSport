@@ -5,6 +5,7 @@ import ContactPage from './ClientPages/ContactPage';
 import Activity from './ClientPages/Activity';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
+import ProductPage from './Components/ProductPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/Activity" element={<Activity />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Signup" element={<Signup />} />
+        <Route path="/ProductPage" element={<ProductPage />} />
 
 
       </Routes>
