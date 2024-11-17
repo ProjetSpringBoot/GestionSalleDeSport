@@ -10,8 +10,7 @@ const Navbar = () => {
     { name: 'ACTIVITÉS', to: '/Activity' },
     { name: 'TARIFS', to: '/tarifs' },
     { name: 'CONTACT', to: '/ContactPage' },
-    { name: 'Login', to: '/Login' }
-
+    { name: 'Login', to: '/Login', isButton: true } // Added a flag for styling as a button
   ];
 
   return (
@@ -33,7 +32,11 @@ const Navbar = () => {
                 <li key={item.name}>
                   <Link
                     to={item.to}
-                    className="text-white hover:text-yellow-400 transition-colors duration-200 text-sm font-medium"
+                    className={`${
+                      item.isButton
+                        ? 'bg-yellow-400 text-black px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-200'
+                        : 'text-white hover:text-yellow-400 transition-colors duration-200 text-sm font-medium'
+                    }`}
                   >
                     {item.name}
                   </Link>
@@ -65,7 +68,11 @@ const Navbar = () => {
                 <li key={item.name}>
                   <Link
                     to={item.to}
-                    className="text-white hover:text-yellow-400 block px-3 py-2 text-base font-medium transition-colors duration-200"
+                    className={`${
+                      item.isButton
+                        ? 'bg-yellow-400 text-yellow-100 block px-4 py-2 rounded-md hover:bg-yellow-800 transition-colors duration-200'
+                        : 'text-white hover:text-yellow-400 block px-3 py-2 text-base font-medium transition-colors duration-200'
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
