@@ -3,7 +3,7 @@ import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
   const navItems = [
     { name: 'ACCUEIL', href: '#' },
     { name: 'NOS ESPACES', href: '#' },
@@ -14,7 +14,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-black/20 sticky top-0 z-50 backdrop-blur-sm">
+    <nav style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }} className="sticky top-0 z-50 backdrop-blur-sm">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}

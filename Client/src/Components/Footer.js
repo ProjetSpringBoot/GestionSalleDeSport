@@ -25,11 +25,11 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <MapPin className="w-5 h-5 text-gray-400" />
-              <span>Rue El Hsinet Montplaisir Tunis</span>
+              <span>Maamoura manba3 l asatir</span>
             </div>
             <div className="flex items-center gap-3">
               <Phone className="w-5 h-5 text-gray-400" />
-              <span>tél : 71 905 378</span>
+              <span>tél : 20 354 629</span>
             </div>
             <div className="flex items-center gap-3">
               <Phone className="w-5 h-5 text-gray-400" />
@@ -37,7 +37,7 @@ const Footer = () => {
             </div>
             <div className="flex items-center gap-3">
               <MapPin className="w-5 h-5 text-gray-400" />
-              <span>07 Rue Ibn El Jazzar, Lafayette - Tunis</span>
+              <span>Maamoura </span>
             </div>
             <div className="flex items-center gap-3">
               <Phone className="w-5 h-5 text-gray-400" />
@@ -61,7 +61,7 @@ const Footer = () => {
         {/* Montplaisir Schedule */}
         <div>
           <h2 className="text-xl font-bold mb-6 relative">
-            HORAIRES MONTPLAISIR
+            HORAIRES manba3 l asatir
             <span className="absolute bottom-0 left-0 w-16 h-0.5 bg-yellow-400 -mb-2"></span>
           </h2>
           
@@ -78,7 +78,7 @@ const Footer = () => {
         {/* Lafayette Schedule */}
         <div>
           <h2 className="text-xl font-bold mb-6 relative">
-            HORAIRES LAFAYETTE
+            HORAIRES manba3 l asatir
             <span className="absolute bottom-0 left-0 w-16 h-0.5 bg-yellow-400 -mb-2"></span>
           </h2>
           
@@ -96,9 +96,9 @@ const Footer = () => {
       {/* Copyright Bar */}
       <div className="border-t border-gray-800 mt-12 pt-8">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400">Copyright © 2016 Galaxy Gym.</p>
+          <p className="text-gray-400">Copyright © 2016 FARIDAA33 Gym.</p>
           <p className="text-gray-400">
-            Powered by <span className="text-yellow-400">Gym Connect</span>
+            Powered by <span className="text-yellow-400">Gym FARIDAA33</span>
           </p>
         </div>
       </div>
