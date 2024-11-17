@@ -3,13 +3,13 @@ import { Facebook, Youtube, MapPin, Phone, Mail } from 'lucide-react';
 
 const Footer = () => {
   const scheduleData = [
-    { day: 'LUNDI', weekdayHours: '06:30 – 21:30', weekendHours: '08:00 – 16:00' },
-    { day: 'MARDI', weekdayHours: '06:30 – 21:30', weekendHours: '08:00 – 16:00' },
-    { day: 'MERCREDI', weekdayHours: '06:30 – 21:30', weekendHours: '08:00 – 16:00' },
-    { day: 'JEUDI', weekdayHours: '06:30 – 21:30', weekendHours: '08:00 – 16:00' },
-    { day: 'VENDREDI', weekdayHours: '06:30 – 21:30', weekendHours: '08:00 – 16:00' },
-    { day: 'SAMEDI', weekdayHours: '08:00 – 16:00', weekendHours: '08:00 – 16:00' },
-    { day: 'DIMANCHE', weekdayHours: '08:00 – 16:00', weekendHours: '08:00 – 16:00' },
+    { day: 'LUNDI', weekendHours: '08:00 – 16:00' },
+    { day: 'MARDI', weekendHours: '08:00 – 16:00' },
+    { day: 'MERCREDI',  weekendHours: '08:00 – 16:00' },
+    { day: 'JEUDI',  weekendHours: '08:00 – 16:00' },
+    { day: 'VENDREDI', weekendHours: '08:00 – 16:00' },
+    { day: 'SAMEDI',  weekendHours: '08:00 – 16:00' },
+    { day: 'DIMANCHE', weekendHours: '08:00 – 16:00' },
   ];
 
   return (
@@ -18,7 +18,7 @@ const Footer = () => {
         {/* Contact Section */}
         <div>
           <h2 className="text-xl font-bold mb-6 relative">
-            CONTACTEZ NOUS
+            Contact Us
             <span className="absolute bottom-0 left-0 w-16 h-0.5 bg-yellow-400 -mb-2"></span>
           </h2>
           
@@ -59,21 +59,7 @@ const Footer = () => {
         </div>
 
         {/* Montplaisir Schedule */}
-        <div>
-          <h2 className="text-xl font-bold mb-6 relative">
-            HORAIRES manba3 l asatir
-            <span className="absolute bottom-0 left-0 w-16 h-0.5 bg-yellow-400 -mb-2"></span>
-          </h2>
-          
-          <div className="space-y-2">
-            {scheduleData.map(({ day, weekdayHours }) => (
-              <div key={day} className="flex justify-between items-center">
-                <span className="text-yellow-400">{day}</span>
-                <span>{weekdayHours}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <div></div>
 
         {/* Lafayette Schedule */}
         <div>

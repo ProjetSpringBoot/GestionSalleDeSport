@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+
 // Import the local image
 import backgroundImage from '../drawable/Home.jpg';
 
@@ -41,12 +43,12 @@ const HeroSlider = () => {
         </p>
 
         <div className="flex gap-4">
-          <button className="px-8 py-3 border-2 border-white hover:bg-white hover:text-black transition-colors">
-            LEARN MORE
-          </button>
-          <button className="px-8 py-3 bg-yellow-500 text-black hover:bg-yellow-400 transition-colors">
-            JOIN NOW
-          </button>
+         
+          <Link to='/Activity'>
+  <button className="px-8 py-3 bg-yellow-500 text-black hover:bg-yellow-400 transition-colors">
+    JOIN NOW
+  </button>
+</Link>
         </div>
       </div>
 

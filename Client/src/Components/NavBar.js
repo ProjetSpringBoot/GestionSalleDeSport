@@ -21,8 +21,8 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <span className="text-2xl font-cursive text-white">
-              Ostoura<span className="text-yellow-400">33</span>y
-              <span className="text-xl">Gym</span>
+              Ostoura<span className="text-yellow-400">33</span>
+              <span className="text-xl">GymStudio</span>
             </span>
           </div>
 

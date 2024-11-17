@@ -1,25 +1,23 @@
 import React from 'react';
+import img from '../drawable/Home.jpg';
 
 const WhyChooseSection = () => {
   return (
     <section className="why-choose-section flex flex-wrap bg-white p-8 rounded-lg shadow-md">
-      {/* Image Section */}
       <div className="image-container flex-shrink-0 w-full md:w-1/2 p-4">
         <img
-          src="path/to/your/image.jpg" // Replace with the image path or import the image if necessary
+          src={img} 
           alt="People training in a gym"
           className="rounded-lg w-full object-cover"
         />
       </div>
 
-      {/* Text Section */}
       <div className="text-container w-full md:w-1/2 p-4">
-        <h2 className="text-2xl font-bold mb-4">Why Choose FitLife Studio?</h2>
+        <h2 className="text-2xl font-bold mb-4">Why Choose OSTOURAA33 Studio?</h2>
         <p className="text-gray-600 mb-6">
           Discover the Benefits That Set Us Apart and Propel Your Fitness Journey Forward.
         </p>
 
-        {/* Benefits List */}
         <ul className="space-y-4">
           <li className="flex items-start">
             <span className="text-orange-500 text-xl mr-2">✔️</span>
@@ -53,8 +51,8 @@ const WhyChooseSection = () => {
         </ul>
 
         {/* Call-to-Action Button */}
-        <button className="mt-6 bg-orange-500 text-white py-2 px-4 rounded-full hover:bg-orange-600 transition-colors duration-300">
-          Free Trial Today
+        <button className="mt-6 bg-yellow-400 text-yellow-100 py-2 px-4 rounded-full hover:bg-yellow-600 transition-colors duration-300">
+          Explore Our Activities        
         </button>
       </div>
     </section>
