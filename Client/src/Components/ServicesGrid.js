@@ -1,37 +1,38 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // If you're using React Router
+import backgroundImage from '../drawable/Home.jpg';
 
 // Sample data for the cards
 const cardData = [
   {
     title: 'Personal Training',
     description: 'Get customized workouts and one-on-one coaching from our expert trainers to achieve your specific fitness goals.',
-    image: '/images/personal-training.jpg', // Replace with actual image paths
+    image: backgroundImage, // Replace with actual image paths
   },
   {
     title: 'Group Fitness Classes',
     description: 'Join our dynamic and motivating group classes, ranging from yoga to high-intensity interval training, designed for all fitness levels.',
-    image: '/images/group-fitness.jpg',
+    image: backgroundImage,
   },
   {
     title: 'Nutritional Guidance',
     description: 'Nutrition plans and advice from our certified nutritionists to complement your fitness routine and enhance your results.',
-    image: '/images/nutritional-guidance.jpg',
+    image: backgroundImage,
   },
   {
     title: 'Wellness Programs',
     description: 'Wellness programs that include stress management, mental well-being, and recovery techniques to support your overall health.',
-    image: '/images/wellness-programs.jpg',
+    image: backgroundImage,
   },
   {
     title: 'Cardio Workouts',
     description: 'Boost your endurance and cardiovascular health with our variety of cardio classes and equipment, tailored to all fitness levels.',
-    image: '/images/cardio-workouts.jpg',
+    image: backgroundImage,
   },
   {
     title: 'Strength Training',
     description: 'Build muscle and increase strength with our structured strength training programs and state-of-the-art weightlifting equipment.',
-    image: '/images/strength-training.jpg',
+    image: backgroundImage,
   },
 ];
 
