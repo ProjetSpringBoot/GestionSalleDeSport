@@ -7,11 +7,11 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'ACCUEIL', to: '/' },
-    { name: 'NOS ESPACES', to: '/nos-espaces' },
-    { name: 'ACTIVITÉS', to: '/activites' },
+    { name: 'ACTIVITÉS', to: '/Activity' },
     { name: 'TARIFS', to: '/tarifs' },
-    { name: 'PLANNING', to: '/planning' },
-    { name: 'CONTACT', to: '/ContactPage' }
+    { name: 'CONTACT', to: '/ContactPage' },
+    { name: 'Login', to: '/Login' }
+
   ];
 
   return (
