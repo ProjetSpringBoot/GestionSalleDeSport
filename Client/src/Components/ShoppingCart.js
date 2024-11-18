@@ -1,100 +1,84 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Table } from 'react-bootstrap';
 import Navbar from './NavBar';
 
 const ShoppingCart = () => {
-  const [items, setItems] = useState([
-    {
-      image: '/shirt1.jpg',
-      name: 'Cotton T-shirt',
-      quantity: 1,
-      price: 44.00,
-    },
-    {
-      image: '/shirt2.jpg',
-      name: 'Cotton T-shirt',
-      quantity: 1,
-      price: 44.00,
-    },
-    {
-      image: '/shirt3.jpg',
-      name: 'Cotton T-shirt',
-      quantity: 1,
-      price: 44.00,
-    },
+  const [products, setProducts] = useState([
+    { id: 1, name: 'Produit 1', description: 'Description du produit 1' },
+    { id: 2, name: 'Produit 2', description: 'Description du produit 2' },
+    { id: 3, name: 'Produit 3', description: 'Description du produit 3' }
   ]);
 
-  const handleQuantityChange = (index, value) => {
-    const updatedItems = [...items];
-    updatedItems[index].quantity = value;
-    setItems(updatedItems);
+  const handleDelete = (id) => {
+    setProducts(products.filter(product => product.id !== id));
   };
 
-  const total = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
-  const shipping = 5.0;
+  const handleUpdate = (id) => {
+    alert(`Mettre à jour le produit avec ID ${id}`);
+  };
 
   return (
-    <div>
-        <Navbar/>
-    <Container>
-      <Row>
-        <Col xs={8}>
-          <h2>Shopping Cart</h2>
-          {items.map((item, index) => (
-            <Card key={index} className="mb-3">
-              <Card.Body>
-                <Row>
-                  <Col xs={3}>
-                    <img src={item.image} alt={item.name} className="img-fluid" />
-                  </Col>
-                  <Col xs={6}>
-                    <h5>{item.name}</h5>
-                    <InputGroup size="sm" className="mb-3">
-                      <FormControl
-                        value={item.quantity}
-                        onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}
-                        type="number"
-                        min={1}
-                        max={99}
-                      />
-                    </InputGroup>
-                  </Col>
-                  <Col xs={3} className="text-right">
-                    <h5>€{item.price.toFixed(2)}</h5>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
+    <div >
+      <Navbar/>
+    <div className="container mt-10 d-flex justify-content-center align-items-center">
+      <h2 className="text-center mb-4 text-primary font-weight-bold">Liste des Produits</h2>
+      <Table striped bordered hover responsive className="table-responsive-sm  table-bordered shadow-lg rounded justify-content-center ">
+        <thead className=" text-black">
+          <tr>
+            <th>ID</th>
+            <th>Nom Produit</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(product => (
+            <tr key={product.id} className="hover-table-row">
+              <td>{product.id}</td>
+              <td>{product.name}</td>
+              <td>{product.description}</td>
+              <td>
+                <Button variant="warning" className="me-2" onClick={() => handleUpdate(product.id)}>Mettre à jour</Button>
+                <Button variant="danger" onClick={() => handleDelete(product.id)}>Supprimer</Button>
+              </td>
+            </tr>
           ))}
-        </Col>
-        <Col xs={4}>
-          <Card>
-            <Card.Body>
-              <h4>Summary</h4>
-              <div className="d-flex justify-content-between">
-                <span>ITEMS {items.length}</span>
-                <span>€{total.toFixed(2)}</span>
-              </div>
-              <div className="d-flex justify-content-between">
-                <span>SHIPPING</span>
-                <span>€{shipping.toFixed(2)}</span>
-              </div>
-              <hr />
-              <div className="d-flex justify-content-between">
-                <span>TOTAL PRICE</span>
-                <span>€{(total + shipping).toFixed(2)}</span>
-              </div>
-              <div className="d-grid gap-2 mt-3">
-                <Button variant="primary">REGISTER</Button>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+        </tbody>
+      </Table>
+
+      <style>{`
+        .hover-table-row:hover {
+          background-color: #f1f1f1;
+          transition: background-color 0.3s ease;
+        }
+        .btn-warning:hover {
+          background-color: #e6a900;
+        }
+        .btn-danger:hover {
+          background-color: #c82333;
+        }
+        .table th, .table td {
+          text-align: center;
+        }
+        .table th {
+          font-size: 18px;
+        }
+        .table td {
+          font-size: 16px;
+        }
+        .shadow-lg {
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .rounded {
+          border-radius: 10px;
+        }
+      `}</style>
+    </div>
     </div>
   );
 };
 
 export default ShoppingCart;
+
+
+
