@@ -10,7 +10,7 @@ const Navbar = () => {
     { name: 'ACCUEIL', to: '/' },
     { name: 'ACTIVITÉS', to: '/Activity' },
     { name: 'CONTACT', to: '/ContactPage' },
-    { name: 'CHARIOT', to: '/CHARIOT', isImage: true }, // Mark as an image
+    { name: 'CHARIOT', to: '/ShoppingCart', isImage: true }, // Mark as an image
     { name: 'Login', to: '/Login', isButton: true }
   ];
 
