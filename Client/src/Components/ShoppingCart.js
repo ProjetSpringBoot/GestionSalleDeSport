@@ -20,9 +20,9 @@ const ShoppingCart = () => {
   return (
     <div >
       <Navbar/>
-    <div className="container mt-10 d-flex justify-content-center align-items-center">
+    <div className="container mt-10 d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
       <h2 className="text-center mb-4 text-primary font-weight-bold">Liste des Produits</h2>
-      <Table striped bordered hover responsive className="table-responsive-sm  table-bordered shadow-lg rounded justify-content-center ">
+      <Table striped bordered hover responsive className="table-responsive-sm w-75 table-bordered shadow-lg rounded justify-content-center ">
         <thead className=" text-black">
           <tr>
             <th>ID</th>
@@ -71,6 +71,9 @@ const ShoppingCart = () => {
         }
         .rounded {
           border-radius: 10px;
+        }
+           .table-responsive-sm {
+          max-width: 100%;
         }
       `}</style>
     </div>
