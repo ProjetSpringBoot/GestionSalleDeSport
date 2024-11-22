@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import shoppingCardImg from '../drawable/shopping-cart.png'; // Import the image
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  // Check login status on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token); // Set logged-in state based on token presence
+  }, []);
+
+  const handleLogout = () => {
+    // Clear token and update state
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/'); // Redirect to home page
+  };
 
   const navItems = [
     { name: 'ACCUEIL', to: '/' },
     { name: 'ACTIVITÉS', to: '/Activity' },
     { name: 'CONTACT', to: '/ContactPage' },
     { name: 'CHARIOT', to: '/ShoppingCart', isImage: true }, // Mark as an image
-    { name: 'Login', to: '/Login', isButton: true }
   ];
 
   return (
@@ -33,26 +47,40 @@ const Navbar = () => {
                 <li key={item.name}>
                   {item.isImage ? (
                     <Link to={item.to}>
-                      <img 
-                        src={shoppingCardImg} 
-                        alt="Chariot" 
+                      <img
+                        src={shoppingCardImg}
+                        alt="Chariot"
                         style={{ width: '24px', height: '24px' }} // Adjust size as needed
                       />
                     </Link>
                   ) : (
                     <Link
                       to={item.to}
-                      className={`${
-                        item.isButton
-                          ? 'bg-yellow-400 text-black px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-200'
-                          : 'text-white hover:text-yellow-400 transition-colors duration-200 text-sm font-medium'
-                      }`}
+                      className="text-white hover:text-yellow-400 transition-colors duration-200 text-sm font-medium"
                     >
                       {item.name}
                     </Link>
                   )}
                 </li>
               ))}
+              {/* Login/Logout Button */}
+              <li>
+                {isLoggedIn ? (
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-200 text-sm font-medium"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <Link
+                    to="/Login"
+                    className="bg-yellow-400 text-black px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-200 text-sm font-medium"
+                  >
+                    Login
+                  </Link>
+                )}
+              </li>
             </ul>
           </div>
 
@@ -79,20 +107,16 @@ const Navbar = () => {
                 <li key={item.name}>
                   {item.isImage ? (
                     <Link to={item.to} onClick={() => setIsMenuOpen(false)}>
-                      <img 
-                        src={shoppingCardImg} 
-                        alt="Chariot" 
+                      <img
+                        src={shoppingCardImg}
+                        alt="Chariot"
                         style={{ width: '24px', height: '24px' }} // Adjust size as needed
                       />
                     </Link>
                   ) : (
                     <Link
                       to={item.to}
-                      className={`${
-                        item.isButton
-                          ? 'bg-yellow-400 text-yellow-100 block px-4 py-2 rounded-md hover:bg-yellow-800 transition-colors duration-200'
-                          : 'text-white hover:text-yellow-400 block px-3 py-2 text-base font-medium transition-colors duration-200'
-                      }`}
+                      className="text-white hover:text-yellow-400 block px-3 py-2 text-base font-medium transition-colors duration-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
@@ -100,6 +124,27 @@ const Navbar = () => {
                   )}
                 </li>
               ))}
+              <li>
+                {isLoggedIn ? (
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="bg-red-500 text-white block px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-200 text-base font-medium"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <Link
+                    to="/Login"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="bg-yellow-400 text-black block px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-200 text-base font-medium"
+                  >
+                    Login
+                  </Link>
+                )}
+              </li>
             </ul>
           </div>
         )}
