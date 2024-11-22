@@ -16,17 +16,17 @@ public class User {
 
     @NotBlank(message = "Username is required")
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, length = 50)
     private String username;
 
     @NotBlank(message = "Number is required")
-    @Pattern(regexp = "\\d{10}", message = "Number must be a valid 10-digit number")
-    @Column(nullable = false, unique = true)
+    @Pattern(regexp = "\\d{8}", message = "Number must be a valid 10-digit number")
+    @Column(nullable = false)
     private String number;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false )
     private String email;
 
     @NotBlank(message = "Password is required")

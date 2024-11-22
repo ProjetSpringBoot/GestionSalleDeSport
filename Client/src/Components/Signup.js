@@ -7,7 +7,6 @@ function SignUp() {
     number: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -25,12 +24,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate passwords match
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match!');
-      return;
-    }
-    setError('');
+
 
     const phoneRegex = /^[0-9]{8}$/; // Accepte uniquement 8 chiffres.
     if (!phoneRegex.test(formData.number)) {
@@ -52,10 +46,9 @@ function SignUp() {
 
     try {
       const response = await axios.post('http://localhost:9070/api/users/register', payload, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
+      
       console.log(response.data);
 
     } catch (error) {
@@ -144,21 +137,7 @@ function SignUp() {
             />
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="confirmPassword" className="block text-yellow-500 text-sm mb-2">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className="w-full bg-transparent border-b border-gray-600 text-white px-3 py-2 focus:outline-none focus:border-teal-400 transition-colors"
-              required
-            />
-          </div>
-
+        
           <button
             type="submit"
             disabled={loading}

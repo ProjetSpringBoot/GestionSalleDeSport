@@ -20,15 +20,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        // Permit register and login endpoints
                         .requestMatchers(HttpMethod.POST, "/api/users/register", "/api/users/login").permitAll()
-                        // Permit GET request for fetching all businesses
-                        .requestMatchers(HttpMethod.GET, "/api/users/all").permitAll()
-                        // Authenticate other requests
                         .anyRequest().authenticated()
                 )
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless applications
-                .cors(cors -> {}); // Enable CORS with a global configuration
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> {});
 
         return http.build();
     }

@@ -4,22 +4,21 @@ import com.gymproject.gym.model.User;
 import com.gymproject.gym.repository.UsersRepository;
 import com.gymproject.gym.util.JwtUtil;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/users")
 public class UserController {
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UsersRepository usersRepository;
     @Autowired
@@ -41,43 +40,29 @@ public class UserController {
 
     // Login a user
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User loginRequest) {
-        Optional<User> user = usersRepository.findByEmail(loginRequest.getEmail());
+    @Consumes("application/json")
+    @Produces("application/json")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        Optional<User> existingUser = usersRepository.findByEmail(user.getEmail());
 
-        if (user.isPresent() && passwordEncoder.matches(loginRequest.getPassword(), user.get().getPassword())) {
-            String token = jwtUtil.generateToken(user.get().getEmail());
-            logger.info("User logged in successfully: {}", loginRequest.getEmail());
-            return ResponseEntity.ok("Bearer " + token);
+        if (existingUser.isPresent()) {
+            // Check password
+            if (passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
+                // Generate JWT token
+                String token = jwtUtil.generateToken(existingUser.get().getEmail());
+
+                // Return success message and token
+                return ResponseEntity.ok("Bearer " + token);
+            } else {
+                return ResponseEntity.badRequest().body("Invalid password.");
+            }
         } else {
-            logger.warn("Invalid credentials for user: {}", loginRequest.getEmail());
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid credentials");
+            return ResponseEntity.badRequest().body("User not found.");
         }
     }
-
-    // Get all users
-    @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = usersRepository.findAll();
-        logger.info("Fetched all users");
-        return ResponseEntity.ok(users);
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: " + e.getMessage());
     }
 
-    // Fetch user details by email
-    @GetMapping("/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
-        Optional<User> user = usersRepository.findByEmail(email);
-        if (user.isPresent()) {
-            logger.info("User details fetched for: {}", email);
-            return ResponseEntity.ok(user.get());
-        } else {
-            logger.warn("User not found: {}", email);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
-
-    // Public endpoint
-    @GetMapping("/public")
-    public ResponseEntity<String> publicEndpoint() {
-        return ResponseEntity.ok("This is a public endpoint");
-    }
 }
