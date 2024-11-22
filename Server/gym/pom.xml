@@ -11,8 +11,8 @@
 	<groupId>com.service</groupId>
 	<artifactId>serviceLocaux</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>serviceLocaux</name>
-	<description>serviceLocaux</description>
+	<name>gym</name>
+	<description>gym</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -68,8 +68,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.30</version>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -94,10 +92,6 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
 
 
 
