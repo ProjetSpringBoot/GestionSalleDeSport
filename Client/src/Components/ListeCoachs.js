@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { useNavigate, Link } from 'react-router-dom'; // Import Link for navigation
 import Navbar from './NavBar';
 import soul from '../drawable/soul.jpg'; // Import the image
 
@@ -32,8 +32,11 @@ const ListeCoachs = () => {
 
   const handleReserveSession = () => {
     if (isLoggedIn) {
-      // If the user is not logged in, navigate to the Contact page
-      navigate('/ShoppingCart'); 
+      // If the user is logged in, navigate to the ShoppingCart page
+      navigate('/ShoppingCart');
+    } else {
+      // Optionally, redirect to a login page if not logged in
+      navigate('/login'); // Adjust the path as needed
     }
   };
 
@@ -86,9 +89,12 @@ const ListeCoachs = () => {
                         </Card.Text>
                       )}
                       <div className="d-flex justify-between mt-4">
-                        <button className="px-6 py-2 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition-colors duration-300">
-                          View Profile
-                        </button>
+                        {/* Link to the ProfilCoach page */}
+                        <Link to="/ProfilCoach">
+                          <button className="px-6 py-2 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition-colors duration-300">
+                            View Profile
+                          </button>
+                        </Link>
                         {isLoggedIn && (
                           <button
                             onClick={handleReserveSession} 

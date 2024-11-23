@@ -8,6 +8,7 @@ import Signup from './Components/Signup';
 import ProductPage from './Components/ProductPage';
 import ShoppingCart from './Components/ShoppingCart';
 import ListeCoachs from './Components/ListeCoachs';
+import ProfilCoach from './Components/ProfilCoach';
 
 
 
@@ -24,8 +25,9 @@ function App() {
         <Route path="/ProductPage" element={<ProductPage />} />
         <Route path="/ShoppingCart" element={<ShoppingCart />} />
         <Route path="/ListeCoachs" element={<ListeCoachs />} />
+        <Route path="/ProfilCoach" element={<ProfilCoach />} />
 
-
+        
 
       </Routes>
     </BrowserRouter>
