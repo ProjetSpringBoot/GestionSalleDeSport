@@ -24,6 +24,7 @@ const Navbar = () => {
   const navItems = [
     { name: 'ACCUEIL', to: '/' },
     { name: 'ACTIVITÉS', to: '/Activity' },
+    { name: 'COACHS', to: '/ListeCoachs' },
     { name: 'CONTACT', to: '/ContactPage' },
     { name: 'CHARIOT', to: '/ShoppingCart', isImage: true }, // Mark as an image
   ];
@@ -50,7 +51,7 @@ const Navbar = () => {
                       <img
                         src={shoppingCardImg}
                         alt="Chariot"
-                        style={{ width: '24px', height: '24px' }} // Adjust size as needed
+                        style={{ width: '24px', height: '24px' }} 
                       />
                     </Link>
                   ) : (
@@ -110,7 +111,7 @@ const Navbar = () => {
                       <img
                         src={shoppingCardImg}
                         alt="Chariot"
-                        style={{ width: '24px', height: '24px' }} // Adjust size as needed
+                        style={{ width: '24px', height: '24px' }} 
                       />
                     </Link>
                   ) : (

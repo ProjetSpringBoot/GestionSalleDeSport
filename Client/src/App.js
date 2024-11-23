@@ -7,6 +7,8 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import ProductPage from './Components/ProductPage';
 import ShoppingCart from './Components/ShoppingCart';
+import ListeCoachs from './Components/ListeCoachs';
+
 
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
         <Route path="/Signup" element={<Signup />} />
         <Route path="/ProductPage" element={<ProductPage />} />
         <Route path="/ShoppingCart" element={<ShoppingCart />} />
+        <Route path="/ListeCoachs" element={<ListeCoachs />} />
 
 
 
