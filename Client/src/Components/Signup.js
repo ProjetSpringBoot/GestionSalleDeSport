@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function SignUp() {
@@ -9,9 +10,9 @@ function SignUp() {
     password: '',
   });
 
-  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,50 +25,46 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-
-    const phoneRegex = /^[0-9]{8}$/; // Accepte uniquement 8 chiffres.
+    const phoneRegex = /^[0-9]{8}$/; // Accepts only 8 digits.
     if (!phoneRegex.test(formData.number)) {
       setError('The phone number must be exactly 8 digits!');
       return;
     }
-    
-    setLoading(true);
-    setMessage('');
-    
+
+    setMessage(''); // Reset the message and error
+    setError('');
 
     const payload = {
       username: formData.username,
       number: formData.number,
       email: formData.email,
       password: formData.password,
-
     };
 
     try {
       const response = await axios.post('http://localhost:9070/api/users/register', payload, {
         headers: { 'Content-Type': 'application/json' },
       });
-      
-      console.log(response.data);
 
+      console.log(response.data);
+      // Redirect to login page upon successful registration
+      navigate('/Login');
     } catch (error) {
       // Handle error properly
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.error("Response error:", error.response.data);  // Error message from server
-        console.error("Status code:", error.response.status);    // HTTP status code
+        console.error("Response error:", error.response.data);
+        console.error("Status code:", error.response.status);
+        setError('An error occurred while registering. Please try again.');
       } else if (error.request) {
-        // The request was made but no response was received
         console.error("Request error:", error.request);
+        setError('No response received from the server. Please try again later.');
       } else {
-        // Something happened in setting up the request that triggered an Error
         console.error("Error:", error.message);
+        setError('An unexpected error occurred.');
       }
     }
   };
- 
+
   return (
     <div className="min-h-screen bg-gray-800 flex items-center justify-center p-4">
       <div className="bg-gray-700 rounded-lg shadow-xl p-8 w-full max-w-md">
@@ -137,13 +134,11 @@ function SignUp() {
             />
           </div>
 
-        
           <button
             type="submit"
-            disabled={loading}
-            className={`w-full bg-transparent text-yellow-500 border border-yellow-400 py-2 px-4 rounded ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-400 hover:text-slate-900'} transition-colors uppercase text-sm tracking-wider`}
+            className="w-full bg-transparent text-yellow-500 border border-yellow-400 py-2 px-4 rounded hover:bg-yellow-400 hover:text-slate-900 transition-colors uppercase text-sm tracking-wider"
           >
-            {loading ? 'Signing Up...' : 'Sign Up'}
+            Sign Up
           </button>
         </form>
       </div>

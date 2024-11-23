@@ -10,13 +10,13 @@ const ListeCoachs = () => {
 
   const coachs = [
     {
-      name: 'Coach Fida',
-      role: 'Capo',
+      name: 'Coach salima l ostoura',
+      role: 'ostora o finomene',
       feedback: '',
       image: '/api/placeholder/80/80'
     },
     {
-      name: 'Coach salima lbhima',
+      name: 'Coach Fida ja7cha lbhima',
       role: '0 majet chay',
       feedback: '',
       image: soul

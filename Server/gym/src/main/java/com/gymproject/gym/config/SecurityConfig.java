@@ -24,7 +24,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> {});
+                .cors(cors -> cors.configurationSource(new WebConfig().corsConfigurationSource())); // Apply CORS
 
         return http.build();
     }
