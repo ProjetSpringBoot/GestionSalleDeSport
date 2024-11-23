@@ -1,12 +1,52 @@
 import React, { useState } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Table, Button, Card } from 'react-bootstrap';
 import Navbar from './NavBar';
+import TrashIcon from '../drawable/trash-can.png';
+import pencilIcon from '../drawable/pencil.png';
+
+const CheckoutSummary = () => {
+  return (
+    <div className="w-64 p-4">
+      <Card className="bg-white rounded-lg shadow">
+        <Card.Body>
+          <Card.Title className="text-lg font-medium mb-4">Summary</Card.Title>
+          
+          <div className="space-y-2 mb-4">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-700">Products</span>
+              <span className="text-gray-900">${53.98}</span>
+            </div>
+            
+            <div className="flex justify-between items-center">
+              <span className="text-gray-700">Shipping</span>
+              <span className="text-gray-900">Gratis</span>
+            </div>
+          </div>
+          
+          <div className="pt-3 border-t border-gray-200">
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-gray-700">Total amount<br />(including VAT)</span>
+              <span className="text-gray-900 font-medium">${53.98}</span>
+            </div>
+            
+            <Button 
+              variant="primary"
+              className="w-full py-2 bg-blue-600 hover:bg-blue-700"
+            >
+              GO TO CHECKOUT
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
+    </div>
+  );
+};
 
 const ShoppingCart = () => {
   const [products, setProducts] = useState([
-    { id: 1, name: 'Produit 1', description: 'Description du produit 1' },
-    { id: 2, name: 'Produit 2', description: 'Description du produit 2' },
-    { id: 3, name: 'Produit 3', description: 'Description du produit 3' }
+    { id: 1, name: 'Produit 1', description: 'Description du produit 1', price: 10 },
+    { id: 2, name: 'Produit 2', description: 'Description du produit 2', price: 20 },
+    { id: 3, name: 'Produit 3', description: 'Description du produit 3', price: 30 }
   ]);
 
   const handleDelete = (id) => {
@@ -17,54 +57,102 @@ const ShoppingCart = () => {
     alert(`Mettre à jour le produit avec ID ${id}`);
   };
 
+  const handleBuy = () => {
+    alert('Achats effectués!');
+  };
+
+  // Calculate the total price of all products in the cart
+  const totalPrice = products.reduce((total, product) => total + product.price, 0);
+
   return (
-    <div >
-      <Navbar/>
-    <div className="container mt-10 d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-      <h2 className="text-center mb-4 text-primary font-weight-bold">Liste des Produits</h2>
-      <Table striped bordered hover responsive className="table-responsive-sm w-75 table-bordered shadow-lg rounded justify-content-center ">
-        <thead className=" text-black">
-          <tr>
-            <th>ID</th>
-            <th>Nom Produit</th>
-            <th>Description</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(product => (
-            <tr key={product.id} className="hover-table-row">
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>{product.description}</td>
-              <td>
-                <Button variant="warning" className="me-2" onClick={() => handleUpdate(product.id)}>Mettre à jour</Button>
-                <Button variant="danger" onClick={() => handleDelete(product.id)}>Supprimer</Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+    <div>
+      <Navbar />
+      <div className="container-fluid m-10 d-flex justify-content-center align-items-center">
+        <div className="d-flex w-100 justify-content-between align-items-start">
+          <div className="left-section">
+            <h2 className="styled-title">Liste des Produits</h2>
+            
+            {/* Create a container for the total price */}
+            <div className="total-container mb-3">
+              <h3 className="total-title">Total: ${totalPrice}</h3>
+            </div>
+
+            <div className="table-container">
+              <Table 
+                  striped 
+                  bordered 
+                  hover 
+                  responsive 
+                  className="shadow-lg rounded custom-table w-100"
+                >
+                  <thead className="text-black">
+                    <tr>
+                      <th>ID</th>
+                      <th>Nom Produit</th>
+                      <th>Description</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {products.map(product => (
+                      <tr key={product.id} className="hover-table-row">
+                        <td>{product.id}</td>
+                        <td>{product.name}</td>
+                        <td>{product.description}</td>
+                        <td>
+                          <button className="update-btn me-2" onClick={() => handleUpdate(product.id)}>
+                            <img src={pencilIcon} alt="Mettre à jour" className="delete-icon" />
+                          </button>
+                          
+                          <button className="custom-delete-btn" onClick={() => handleDelete(product.id)}>
+                            <img src={TrashIcon} alt="Supprimer" className="delete-icon icon-spacing" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+                {/* Buy Now button placed below the table */}
+                <Button 
+                  variant="primary" 
+                  className="mt-3 custom-buy-btn"
+                  onClick={handleBuy}
+                >
+                  Buy Now
+                </Button>
+            </div>
+          </div>
+
+          {/* Checkout Summary on the right */}
+          <div className="right-section">
+            <CheckoutSummary />
+          </div>
+        </div>
+      </div>
 
       <style>{`
+        .icon-spacing {
+          margin-left: 25px;
+        }
+        .container-fluid {
+          max-width: 90%;
+        }
+        .custom-table {
+          font-size: 20px; /* Increased font size for the table */
+        }
         .hover-table-row:hover {
           background-color: #f1f1f1;
           transition: background-color 0.3s ease;
         }
-        .btn-warning:hover {
-          background-color: #e6a900;
-        }
-        .btn-danger:hover {
-          background-color: #c82333;
-        }
         .table th, .table td {
           text-align: center;
+          padding: 18px; /* Increased padding */
         }
         .table th {
-          font-size: 18px;
+          font-size: 22px; /* Increased font size for table header */
         }
         .table td {
-          font-size: 16px;
+          font-size: 20px; /* Increased font size for table data */
         }
         .shadow-lg {
           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -72,16 +160,103 @@ const ShoppingCart = () => {
         .rounded {
           border-radius: 10px;
         }
-           .table-responsive-sm {
-          max-width: 100%;
+        .delete-icon {
+          width: 36px; /* Increased size for icons */
+          height: 36px;
+        }
+
+        /* Stylish Button */
+        .custom-buy-btn {
+          background-color: #28a745;
+          border: none;
+          color: white;
+          font-size: 20px; /* Increased font size for button */
+          font-weight: bold;
+          padding: 15px 25px; /* Increased padding */
+          border-radius: 5px;
+          transition: all 0.3s ease;
+        }
+
+        .custom-buy-btn:hover {
+          background-color: #218838;
+          transform: scale(1.05);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-buy-btn:focus {
+          outline: none;
+        }
+
+        .custom-buy-btn:active {
+          transform: scale(1);
+        }
+
+        .styled-title {
+          color: #007bff; /* Primary blue color */
+          font-weight: bold; /* Bold font */
+          font-size: 3rem; /* Increased font size */
+          text-transform: uppercase; /* Uppercase letters */
+          letter-spacing: 2px; /* Increased spacing between letters */
+          padding: 15px 25px; /* Larger padding */
+          border-radius: 10px; /* Rounded corners */
+          text-align: center; /* Center text */
+          margin-bottom: 30px; /* Increased space below title */
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+          transition: all 0.3s ease; /* Smooth transition for hover */
+        }
+
+        /* Hover effect */
+        .styled-title:hover {
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+        }
+
+        /* Container for the total */
+        .total-container {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          width: 100%;
+          padding-left: 15px; /* Padding from the left */
+        }
+
+        .total-title {
+          font-size: 24px;
+          font-weight: bold;
+          color: #28a745;
+        }
+
+        /* Layout for left and right sections */
+        .d-flex {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .left-section {
+          flex: 1;
+          padding-right: 20px;
+        }
+
+        .right-section {
+          width: 300px;
+          padding-left: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .styled-title {
+            font-size: 2.5rem; /* Slightly smaller font size on mobile */
+            padding: 12px 20px; /* Smaller padding on mobile */
+          }
+          .custom-table {
+            font-size: 18px; /* Slightly smaller font size on mobile */
+          }
+          .table th, .table td {
+            padding: 12px; /* Reduced padding on mobile */
+          }
         }
       `}</style>
-    </div>
     </div>
   );
 };
 
 export default ShoppingCart;
-
-
-
