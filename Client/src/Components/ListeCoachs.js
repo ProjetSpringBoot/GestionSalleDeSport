@@ -18,18 +18,7 @@ const ListeCoachs = () => {
       feedback: '',
       image: soul
     },
-    {
-      name: 'Dr. Mary Rodriguez',
-      role: 'Periodontist',
-      feedback: '',
-      image: '/api/placeholder/80/80'
-    },
-    {
-      name: 'Dr. Jean Carter',
-      role: 'Periodontist',
-      feedback: '',
-      image: '/api/placeholder/80/80'
-    }
+    
   ];
 
   return (
@@ -80,9 +69,14 @@ const ListeCoachs = () => {
                           "{member.feedback}"
                         </Card.Text>
                       )}
-                      <button className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition-colors duration-300">
-                        View Profile
-                      </button>
+                      <div className="d-flex justify-between mt-4">
+                        <button className="px-6 py-2 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition-colors duration-300">
+                          View Profile
+                        </button>
+                        <button className="px-6 py-2 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600 transition-colors duration-300">
+                          Reserve Private Session
+                        </button>
+                      </div>
                     </Card.Body>
                   </Card>
                 </Col>
