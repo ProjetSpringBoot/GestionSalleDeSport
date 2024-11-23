@@ -1,5 +1,7 @@
 import React from 'react';
 import img from '../drawable/Home.jpg';
+import { Link } from 'react-router-dom';
+
 
 const WhyChooseSection = () => {
   return (
@@ -50,10 +52,15 @@ const WhyChooseSection = () => {
           </li>
         </ul>
 
-        {/* Call-to-Action Button */}
+        <div className="flex gap-4">
+         
+          <Link to='/Activity'>
         <button className="mt-6 bg-yellow-400 text-yellow-100 py-2 px-4 rounded-full hover:bg-yellow-600 transition-colors duration-300">
           Explore Our Activities        
         </button>
+        </Link>
+        </div>
+
       </div>
     </section>
   );

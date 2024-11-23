@@ -44,7 +44,7 @@ const HeroSlider = () => {
 
         <div className="flex gap-4">
          
-          <Link to='/Activity'>
+          <Link to='/Login'>
   <button className="px-8 py-3 bg-yellow-500 text-black hover:bg-yellow-400 transition-colors">
     JOIN NOW
   </button>

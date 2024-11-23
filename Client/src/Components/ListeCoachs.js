@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 import Navbar from './NavBar';
 import soul from '../drawable/soul.jpg'; // Import the image
 
-
 const ListeCoachs = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage login status
+  const navigate = useNavigate(); // Hook to programmatically navigate
+
   const coachs = [
     {
       name: 'Coach Fida',
@@ -18,8 +21,21 @@ const ListeCoachs = () => {
       feedback: '',
       image: soul
     },
-    
   ];
+
+  // Check login status when component mounts
+  useEffect(() => {
+    // Check if there's a token in localStorage (or use your preferred method)
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token); // Set login status based on token presence
+  }, []);
+
+  const handleReserveSession = () => {
+    if (isLoggedIn) {
+      // If the user is not logged in, navigate to the Contact page
+      navigate('/ShoppingCart'); 
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -73,9 +89,14 @@ const ListeCoachs = () => {
                         <button className="px-6 py-2 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition-colors duration-300">
                           View Profile
                         </button>
-                        <button className="px-6 py-2 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600 transition-colors duration-300">
-                          Reserve Private Session
-                        </button>
+                        {isLoggedIn && (
+                          <button
+                            onClick={handleReserveSession} 
+                            className="px-6 py-2 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600 transition-colors duration-300"
+                          >
+                            Reserve Private Session
+                          </button>
+                        )}
                       </div>
                     </Card.Body>
                   </Card>
