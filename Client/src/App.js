@@ -1,14 +1,19 @@
 import './App.css';
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Home from './ClientPages/Home';
 import ContactPage from './ClientPages/ContactPage'; 
 import Activity from './ClientPages/Activity';
-import Login from './Components/Login';
-import Signup from './Components/Signup';
+import LoginClient from './ClientPages/LoginClient';
+import LoginCoach from './CoachsPages/LoginCoach';
+import SignUpCoachs from './CoachsPages/SignUpCoachs';
+import SignupClient from './ClientPages/SignupClient';
 import ProductPage from './Components/ProductPage';
 import ShoppingCart from './Components/ShoppingCart';
 import ListeCoachs from './Components/ListeCoachs';
 import ProfilCoach from './Components/ProfilCoach';
+import Join from './Components/Join';
 
 
 
@@ -20,12 +25,17 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/contactPage" element={<ContactPage />} />
         <Route path="/Activity" element={<Activity />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Signup" element={<Signup />} />
+        <Route path="/LoginClient" element={<LoginClient />} />
+        <Route path="/LoginCoach" element={<LoginCoach />} />
+        <Route path="/SignupClient" element={<SignupClient />} />
+        <Route path="/SignUpCoachs" element={<SignUpCoachs />} />
         <Route path="/ProductPage" element={<ProductPage />} />
         <Route path="/ShoppingCart" element={<ShoppingCart />} />
         <Route path="/ListeCoachs" element={<ListeCoachs />} />
         <Route path="/ProfilCoach" element={<ProfilCoach />} />
+        <Route path="/Join" element={<Join />} />
+        
+
 
         
 

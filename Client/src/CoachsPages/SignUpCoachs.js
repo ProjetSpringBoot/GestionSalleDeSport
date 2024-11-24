@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function SignUp() {
+function SignUpCoachs() {
   const [formData, setFormData] = useState({
     username: '',
-    number: '',
+    phone: '', // Updated from 'number' to 'phone'
     email: '',
     password: '',
+    specialization: '', // Updated from 'specialty' to 'specialization'
   });
 
   const [message, setMessage] = useState('');
@@ -26,7 +27,7 @@ function SignUp() {
     e.preventDefault();
 
     const phoneRegex = /^[0-9]{8}$/; // Accepts only 8 digits.
-    if (!phoneRegex.test(formData.number)) {
+    if (!phoneRegex.test(formData.phone)) {
       setError('The phone number must be exactly 8 digits!');
       return;
     }
@@ -36,19 +37,20 @@ function SignUp() {
 
     const payload = {
       username: formData.username,
-      number: formData.number,
+      phone: formData.phone, // Updated to match 'phone'
       email: formData.email,
       password: formData.password,
+      specialization: formData.specialization, // Updated to match 'specialization'
     };
 
     try {
-      const response = await axios.post('http://localhost:9070/api/users/register', payload, {
+      const response = await axios.post('http://localhost:9070/api/coaches/register', payload, {
         headers: { 'Content-Type': 'application/json' },
       });
 
       console.log(response.data);
       // Redirect to login page upon successful registration
-      navigate('/Login');
+      navigate('/LoginCoach');
     } catch (error) {
       // Handle error properly
       if (error.response) {
@@ -90,14 +92,14 @@ function SignUp() {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="number" className="block text-yellow-500 text-sm mb-2">
-              Number
+            <label htmlFor="phone" className="block text-yellow-500 text-sm mb-2">
+              Phone
             </label>
             <input
               type="text"
-              id="number"
-              name="number"
-              value={formData.number}
+              id="phone"
+              name="phone"
+              value={formData.phone}
               onChange={handleChange}
               className="w-full bg-transparent border-b border-gray-600 text-white px-3 py-2 focus:outline-none focus:border-teal-400 transition-colors"
               required
@@ -134,6 +136,21 @@ function SignUp() {
             />
           </div>
 
+          <div className="mb-4">
+            <label htmlFor="specialization" className="block text-yellow-500 text-sm mb-2">
+              Specialization
+            </label>
+            <input
+              type="text"
+              id="specialization"
+              name="specialization"
+              value={formData.specialization}
+              onChange={handleChange}
+              className="w-full bg-transparent border-b border-gray-600 text-white px-3 py-2 focus:outline-none focus:border-teal-400 transition-colors"
+              required
+            />
+          </div>
+
           <button
             type="submit"
             className="w-full bg-transparent text-yellow-500 border border-yellow-400 py-2 px-4 rounded hover:bg-yellow-400 hover:text-slate-900 transition-colors uppercase text-sm tracking-wider"
@@ -146,4 +163,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignUpCoachs;

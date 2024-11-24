@@ -84,13 +84,18 @@ function Login() {
             {loading ? 'Logging in...' : 'Submit'}
           </button>
 
-          {/* Sign Up Button */}
-          <Link
-            to="/signup"
-            className="w-full mt-4 bg-transparent text-yellow-400 border border-yellow-400 py-2 px-4 rounded hover:bg-yellow-400 hover:text-slate-900 transition-colors uppercase text-sm tracking-wider block text-center"
-          >
-            Sign Up
-          </Link>
+{/* Don't Have an Account Section */}
+<div className="text-center mt-4">
+          <p className="text-gray-400 text-sm">
+            Don't have an account?{' '}
+            <Link
+              to="/signupClient"
+              className="text-yellow-400 font-semibold hover:text-yellow-500 transition-colors"
+            >
+              Sign Up
+            </Link>
+          </p>
+        </div>
         </form>
       </div>
     </div>

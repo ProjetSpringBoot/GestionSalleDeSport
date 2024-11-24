@@ -17,14 +17,21 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, WebConfig webConfig) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+                        // Permit register and login endpoints
                         .requestMatchers(HttpMethod.POST, "/api/users/register", "/api/users/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/coaches/register", "/api/coaches/login").permitAll()
+                        // Permit GET request for fetching all businesses
+                        .requestMatchers(HttpMethod.GET, "/api/gym/all").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/gym/*").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/requests").permitAll()
+                        // Authenticate other requests
                         .anyRequest().authenticated()
                 )
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(new WebConfig().corsConfigurationSource())); // Apply CORS
+                .csrf(csrf -> csrf.disable())  // Disable CSRF protection for stateless API
+                .cors(cors -> cors.configurationSource(webConfig.corsConfigurationSource()));// Use CORS settings from WebConfig
 
         return http.build();
     }
