@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -61,8 +62,15 @@ public class CoachController {
         }
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<String> testEndpoint() {
-        return ResponseEntity.ok("Security configuration is working!");
+    // Get all coaches
+    @GetMapping("/all")
+    public ResponseEntity<List<Coach>> getAllCoaches() {
+        try {
+            List<Coach> coaches = coachRepository.findAll();
+            return ResponseEntity.ok(coaches);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
+
 }

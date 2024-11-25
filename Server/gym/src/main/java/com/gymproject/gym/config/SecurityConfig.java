@@ -13,25 +13,25 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); // Secure password encoding
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, WebConfig webConfig) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        // Permit register and login endpoints
+                        // Allow unauthenticated access to specific endpoints
                         .requestMatchers(HttpMethod.POST, "/api/users/register", "/api/users/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/coaches/register", "/api/coaches/login").permitAll()
-                        // Permit GET request for fetching all businesses
+                        .requestMatchers(HttpMethod.GET, "/api/coaches/all").permitAll() // Add this if fetching coaches
                         .requestMatchers(HttpMethod.GET, "/api/gym/all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/gym/*").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/requests").permitAll()
-                        // Authenticate other requests
+                        // Require authentication for all other requests
                         .anyRequest().authenticated()
                 )
-                .csrf(csrf -> csrf.disable())  // Disable CSRF protection for stateless API
-                .cors(cors -> cors.configurationSource(webConfig.corsConfigurationSource()));// Use CORS settings from WebConfig
+                .csrf(csrf -> csrf.disable())  // Disable CSRF for stateless APIs
+                .cors(cors -> cors.configurationSource(webConfig.corsConfigurationSource())); // Use CORS settings from WebConfig
 
         return http.build();
     }

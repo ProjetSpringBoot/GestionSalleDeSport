@@ -2,7 +2,9 @@ import './App.css';
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Home from './ClientPages/Home';
+import ClientHome from './ClientPages/ClientHome';
+import CoachHome from './CoachsPages/CoachHome';
+
 import ContactPage from './ClientPages/ContactPage'; 
 import Activity from './ClientPages/Activity';
 import LoginClient from './ClientPages/LoginClient';
@@ -21,8 +23,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Navigate to="/ClientHome" />} />
+        <Route path="/ClientHome" element={<ClientHome />} />
+        <Route path="/CoachHome" element={<CoachHome />} />
         <Route path="/contactPage" element={<ContactPage />} />
         <Route path="/Activity" element={<Activity />} />
         <Route path="/LoginClient" element={<LoginClient />} />

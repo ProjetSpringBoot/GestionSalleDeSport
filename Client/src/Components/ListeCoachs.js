@@ -2,43 +2,56 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom'; // Import Link for navigation
 import Navbar from './NavBar';
-import soul from '../drawable/soul.jpg'; // Import the image
+import axios from 'axios'; // For API requests
 
 const ListeCoachs = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage login status
+  const [coachs, setCoachs] = useState([]); // State to store fetched coaches
+  const [loading, setLoading] = useState(true); // State to handle loading state
+  const [error, setError] = useState(null); // State to handle error messages
   const navigate = useNavigate(); // Hook to programmatically navigate
-
-  const coachs = [
-    {
-      name: 'Coach salima l ostoura',
-      role: 'ostora o finomene',
-      feedback: '',
-      image: '/api/placeholder/80/80'
-    },
-    {
-      name: 'Coach Fida ja7cha lbhima',
-      role: '0 majet chay',
-      feedback: '',
-      image: soul
-    },
-  ];
 
   // Check login status when component mounts
   useEffect(() => {
-    // Check if there's a token in localStorage (or use your preferred method)
     const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token); // Set login status based on token presence
+    setIsLoggedIn(!!token);
+  }, []);
+
+  // Fetch coach data from backend API
+  useEffect(() => {
+    const fetchCoaches = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await axios.get('http://localhost:9070/api/coaches/all'); // Use the correct backend URL
+        setCoachs(response.data);
+      } catch (err) {
+        console.error('Failed to fetch coaches:', err);
+        setError('Failed to fetch coaches. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCoaches();
   }, []);
 
   const handleReserveSession = () => {
     if (isLoggedIn) {
-      // If the user is logged in, navigate to the ShoppingCart page
       navigate('/ShoppingCart');
     } else {
-      // Optionally, redirect to a login page if not logged in
-      navigate('/login'); // Adjust the path as needed
+      navigate('/login'); 
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -52,52 +65,34 @@ const ListeCoachs = () => {
             <p className="text-left text-gray-600 mb-12 max-w-2xl">
               Meet our dedicated professional coaches
             </p>
-            
+
             <Row className="mx-0 gap-4">
               {coachs.map((member, index) => (
-                <Col 
-                  key={index} 
-                  xs={12} 
-                  sm={6} 
-                  md={6} 
-                  lg={3} 
+                <Col
+                  key={index}
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  lg={3}
                   className="mb-8"
                 >
-                  <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl overflow-hidden bg-white w-full">
-                    <div className="relative pt-6">
-                      <div className="mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-md">
-                        <Card.Img 
-                          variant="top" 
-                          src={member.image} 
-                          className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300"
-                          alt={member.name}
-                        />
-                      </div>
-                    </div>
-                    
-                    <Card.Body className="text-left p-6">
+                  <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl overflow-hidden bg-white w-full p-4">
+                    <Card.Body className="text-center">
                       <Card.Title className="text-xl font-bold text-gray-800 mb-2">
-                        {member.name}
+                        {member.username}
                       </Card.Title>
-                      <div className="w-12 h-1 bg-blue-500 mb-3 rounded-full"/>
                       <Card.Text className="text-gray-600 font-medium mb-4">
-                        {member.role}
+                        Specialization: {member.specialization || 'Not specified'}
                       </Card.Text>
-                      {member.feedback && (
-                        <Card.Text className="text-gray-500 text-sm italic">
-                          "{member.feedback}"
-                        </Card.Text>
-                      )}
                       <div className="d-flex justify-between mt-4">
-                        {/* Link to the ProfilCoach page */}
-                        <Link to="/ProfilCoach">
+                        <Link to={`/ProfilCoach/${member.id}`}>
                           <button className="px-6 py-2 bg-blue-500 text-white rounded-full text-sm font-medium hover:bg-blue-600 transition-colors duration-300">
                             View Profile
                           </button>
                         </Link>
                         {isLoggedIn && (
                           <button
-                            onClick={handleReserveSession} 
+                            onClick={handleReserveSession}
                             className="px-6 py-2 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600 transition-colors duration-300"
                           >
                             Reserve Private Session

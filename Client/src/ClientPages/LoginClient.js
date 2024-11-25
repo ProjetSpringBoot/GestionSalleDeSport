@@ -24,7 +24,7 @@ function Login() {
       localStorage.setItem('token', response.data.token);
 
       // Redirect to user dashboard or home
-      navigate('/Home');
+      navigate('/ClientHome');
     } catch (err) {
       // Display error message
       setError('Invalid email or password');

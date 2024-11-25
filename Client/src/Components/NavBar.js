@@ -14,6 +14,7 @@ const Navbar = () => {
     setIsLoggedIn(!!token); // Set logged-in state based on token presence
   }, []);
 
+  
   const handleLogout = () => {
     // Clear token and update state
     localStorage.removeItem('token');
@@ -31,23 +32,23 @@ const Navbar = () => {
 
   return (
     <nav style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }} className="sticky top-0 z-50 backdrop-blur-sm">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4 py-3">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <span className="text-2xl font-cursive text-white">
+          <div className="flex-shrink-0 flex items-center justify-center">
+            <span className="text-2xl font-semibold text-white">
               Ostoura<span className="text-yellow-400">33</span>
               <span className="text-xl">GymStudio</span>
             </span>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex space-x-10 items-center mt-7">
             <ul className="flex space-x-8">
               {navItems.map((item) => (
                 <li key={item.name}>
                   {item.isImage ? (
-                    <Link to={item.to}>
+                    <Link to={item.to} className="no-underline">
                       <img
                         src={shoppingCardImg}
                         alt="Chariot"
@@ -57,7 +58,7 @@ const Navbar = () => {
                   ) : (
                     <Link
                       to={item.to}
-                      className="text-white hover:text-yellow-400 transition-colors duration-200 text-sm font-medium"
+                      className="no-underline text-white hover:text-yellow-400 transition-colors duration-200 text-sm font-medium"
                     >
                       {item.name}
                     </Link>
@@ -107,7 +108,7 @@ const Navbar = () => {
               {navItems.map((item) => (
                 <li key={item.name}>
                   {item.isImage ? (
-                    <Link to={item.to} onClick={() => setIsMenuOpen(false)}>
+                    <Link to={item.to} onClick={() => setIsMenuOpen(false)} className="no-underline">
                       <img
                         src={shoppingCardImg}
                         alt="Chariot"
@@ -117,7 +118,7 @@ const Navbar = () => {
                   ) : (
                     <Link
                       to={item.to}
-                      className="text-white hover:text-yellow-400 block px-3 py-2 text-base font-medium transition-colors duration-200"
+                      className="no-underline text-white hover:text-yellow-400 block px-3 py-2 text-base font-medium transition-colors duration-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
@@ -138,7 +139,7 @@ const Navbar = () => {
                   </button>
                 ) : (
                   <Link
-                    to="/Login"
+                    to="/Join"
                     onClick={() => setIsMenuOpen(false)}
                     className="bg-yellow-400 text-black block px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors duration-200 text-base font-medium"
                   >
