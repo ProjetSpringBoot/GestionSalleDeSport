@@ -19,6 +19,12 @@
    ```bash
    git clone https://github.com/votreutilisateur/GestionComplexeSportif.git
    cd GestionComplexeSportif
+   
+
+1. **Ouvrir le projet** :
+   ```bash
+   git clone https://github.com/votreutilisateur/GestionComplexeSportif.git
+   cd GestionComplexeSportif
    cd client
    npm i
    npm start
