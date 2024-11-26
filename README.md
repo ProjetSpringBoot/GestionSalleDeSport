@@ -1,16 +1,14 @@
 # GestionComplexeSportif
 
-**GestionComplexeSportif** est une application web complète conçue pour la gestion efficace des installations sportives. Ce projet utilise Spring Boot pour le développement du back-end, React pour le front-end, et MongoDB comme base de données pour une gestion flexible et évolutive des données.
+**GestionComplexeSportif** est une application web complète conçue pour la gestion efficace des installations sportives. Ce projet utilise Spring Boot pour le développement du back-end, React pour le front-end, et MYSQL comme base de données pour une gestion flexible et évolutive des données.
 
 ## Fonctionnalités clés
-- **Gestion des réservations** : Réservation de terrains et d'équipements sportifs.
-- **** : Gestion .
-
+- **Gestion des réservations** : Réservation des coachs.
 
 ## Technologies utilisées
 - **Back-end** : [Spring Boot](https://spring.io/projects/spring-boot) .
 - **Front-end** : [React](https://reactjs.org/).
-- **Base de données** : [MongoDB](https://www.mongodb.com/) .
+- **Base de données** : [MYsql].
 
 ## Objectifs du projet
 - **Optimisation** : Centraliser les processus administratifs pour une gestion plus efficace des complexes sportifs.
