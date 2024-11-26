@@ -1,6 +1,7 @@
 package com.gymproject.gym.controller;
 
 import com.gymproject.gym.model.Coach;
+import com.gymproject.gym.model.User;
 import com.gymproject.gym.util.JwtUtil;
 import com.gymproject.gym.repository.CoachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -46,6 +49,7 @@ public class CoachController {
     // Login for coach
     @PostMapping("/login")
     public ResponseEntity<?> loginCoach(@RequestBody Coach coach) {
+        
         Optional<Coach> existingCoach = coachRepository.findByEmail(coach.getEmail());
 
         if (existingCoach.isPresent()) {
@@ -53,12 +57,18 @@ public class CoachController {
             if (passwordEncoder.matches(coach.getPassword(), existingCoach.get().getPassword())) {
                 // Generate JWT token
                 String token = jwtUtil.generateToken(existingCoach.get().getEmail());
-                return ResponseEntity.ok().body("Bearer " + token);
+
+                // Return success message and token in JSON format
+                Map<String, String> response = new HashMap<>();
+                response.put("message", "Login successful");
+                response.put("token", token);
+
+                return ResponseEntity.ok(response);
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password.");
+                return ResponseEntity.badRequest().body("Invalid password.");
             }
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+            return ResponseEntity.badRequest().body("User not found.");
         }
     }
 
