@@ -16,6 +16,7 @@ import ShoppingCart from './Components/ShoppingCart';
 import ListeCoachs from './Components/ListeCoachs';
 import ProfilCoach from './Components/ProfilCoach';
 import Join from './Components/Join';
+import Coach from './CoachsPages/HomeCoach';
 
 
 
@@ -37,7 +38,7 @@ function App() {
         <Route path="/ListeCoachs" element={<ListeCoachs />} />
         <Route path="/ProfilCoach" element={<ProfilCoach />} />
         <Route path="/Join" element={<Join />} />
-        
+        <Route path="/Coach" element={<Coach />} />
 
 
         
