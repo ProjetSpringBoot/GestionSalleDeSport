@@ -19,3 +19,6 @@
    ```bash
    git clone https://github.com/votreutilisateur/GestionComplexeSportif.git
    cd GestionComplexeSportif
+   cd client
+   npm i
+   npm start
