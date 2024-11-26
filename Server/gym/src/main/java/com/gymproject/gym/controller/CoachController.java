@@ -49,7 +49,7 @@ public class CoachController {
     // Login for coach
     @PostMapping("/login")
     public ResponseEntity<?> loginCoach(@RequestBody Coach coach) {
-        
+
         Optional<Coach> existingCoach = coachRepository.findByEmail(coach.getEmail());
 
         if (existingCoach.isPresent()) {

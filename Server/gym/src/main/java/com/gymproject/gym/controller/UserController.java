@@ -20,7 +20,6 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/users")
 public class UserController {
-
     @Autowired
     private UsersRepository usersRepository;
     @Autowired
@@ -66,9 +65,6 @@ public class UserController {
             return ResponseEntity.badRequest().body("User not found.");
         }
     }
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: " + e.getMessage());
-    }
+
 
 }
