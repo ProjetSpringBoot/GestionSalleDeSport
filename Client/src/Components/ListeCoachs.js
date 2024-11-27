@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import Navbar from './NavBar';
 import axios from 'axios';
@@ -9,6 +9,7 @@ const ListeCoachs = () => {
   const [coachs, setCoachs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [specializationFilter, setSpecializationFilter] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,6 +52,14 @@ const ListeCoachs = () => {
     navigate('/shoppingCart'); // Navigate to ShoppingCart page
   };
 
+  const handleSpecializationChange = (event) => {
+    setSpecializationFilter(event.target.value);
+  };
+
+  const filteredCoaches = coachs.filter(coach => {
+    return !specializationFilter || coach.specialization === specializationFilter;
+  });
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -72,8 +81,25 @@ const ListeCoachs = () => {
               Meet our dedicated professional coaches
             </p>
 
+            <Form.Group className="mb-4" controlId="specializationSelect">
+              <Form.Label >Filter by Specialization</Form.Label>
+              <Form.Control as="select" value={specializationFilter} onChange={handleSpecializationChange}>
+                <option value="">All Specializations</option>
+                <option value="Fitness Training">Fitness Training</option>
+                <option value="Aerobic Classes">Aerobic Classes</option>
+                <option value="Boxing">Boxing</option>
+                <option value="Taekwondo">Taekwondo</option>
+                <option value="Yoga and Meditation">Yoga and Meditation</option>
+                <option value="Zumba Dance">Zumba Dance</option>
+                <option value="Spinning">Spinning</option>
+                <option value="CrossFit">CrossFit</option>
+                <option value="Pilates">Pilates</option>
+                <option value="Martial Arts">Martial Arts</option>
+              </Form.Control>
+            </Form.Group>
+
             <Row className="mx-0 gap-4">
-              {coachs.map((member, index) => (
+              {filteredCoaches.map((member, index) => (
                 <Col key={index} xs={12} sm={6} md={6} lg={3} className="mb-8">
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl overflow-hidden bg-white w-full p-4">
                     <Card.Body className="text-center">
