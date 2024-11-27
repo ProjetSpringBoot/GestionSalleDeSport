@@ -1,9 +1,20 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { FaTachometerAlt, FaCalendarCheck, FaClipboardList, FaFileInvoiceDollar, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaTachometerAlt, FaClipboardList, FaFileInvoiceDollar, FaCog, FaSignOutAlt } from 'react-icons/fa';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remove the token from localStorage to log the user out
+    localStorage.removeItem('token');
+    // Optionally, clear any other session data or user-specific data
+
+    // Redirect to the login page or home page
+    navigate('/LoginCoach'); // Or you can navigate to '/' for the home page
+  };
+
   const navLinkStyle = {
     color: '#BDC3C7',
     padding: '10px',
@@ -21,12 +32,12 @@ const Sidebar = () => {
       }}
     >
       <div style={{ textAlign: 'center', padding: '20px' }}>
-      <div className="flex-shrink-0 flex items-center justify-center">
-            <span className="text-2xl font-semibold text-white">
+        <div className="flex-shrink-0 flex items-center justify-center">
+          <span className="text-2xl font-semibold text-white">
             Coach<span className="text-yellow-400">33</span>
-              <span className="text-xl">Space</span>
-            </span>
-          </div>
+            <span className="text-xl">Space</span>
+          </span>
+        </div>
       </div>
 
       <Nav className="flex-column">
@@ -42,12 +53,9 @@ const Sidebar = () => {
         <Link to="/parametres" style={navLinkStyle}>
           <FaCog className="mr-2" /> Paramètres
         </Link>
-        <Link to="/logout" style={navLinkStyle}>
+        <span onClick={handleLogout} style={navLinkStyle}>
           <FaSignOutAlt className="mr-2" /> Déconnexion
-          
-        </Link>
-
-        
+        </span>
       </Nav>
     </div>
   );
