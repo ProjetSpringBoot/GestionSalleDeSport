@@ -136,7 +136,7 @@ function SignUpCoachs() {
             />
           </div>
 
-          <div className="mb-4">
+        {/*  <div className="mb-4">
             <label htmlFor="specialization" className="block text-yellow-500 text-sm mb-2">
               Specialization
             </label>
@@ -149,7 +149,34 @@ function SignUpCoachs() {
               className="w-full bg-transparent border-b border-gray-600 text-white px-3 py-2 focus:outline-none focus:border-teal-400 transition-colors"
               required
             />
-          </div>
+          </div> */}
+          <div className="mb-4">
+  <label htmlFor="specialization" className="block text-yellow-500 text-sm mb-2">
+    Specialization
+  </label>
+  <select
+    id="specialization"
+    name="specialization"
+    value={formData.specialization}
+    onChange={handleChange}
+    className="w-full bg-transparent border-b border-gray-600 text-black px-3 py-2 focus:outline-none focus:border-teal-400 transition-colors"
+    required
+  >
+    <option value="" disabled>
+      Select your specialization
+    </option>
+    <option value="Fitness Training">Fitness Training</option>
+    <option value="Aerobic Classes">Aerobic Classes</option>
+    <option value="Boxing">Boxing</option>
+    <option value="Taekwondo">Taekwondo</option>
+    <option value="Yoga and Meditation">Yoga and Meditation</option>
+    <option value="Zumba Dance">Zumba Dance</option>
+    <option value="Spinning">Spinning</option>
+    <option value="CrossFit">CrossFit</option>
+    <option value="Pilates">Pilates</option>
+    <option value="Martial Arts">Martial Arts</option>
+  </select>
+</div>
 
           <button
             type="submit"

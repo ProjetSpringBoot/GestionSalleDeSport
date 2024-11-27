@@ -56,4 +56,18 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to notify the coach.");
         }
     }
+
+
+    // get coach by ID
+    @GetMapping("Coach/{id}")
+    public ResponseEntity<List<Reservation>> getReservationsByCoachId(@PathVariable Long id) {
+        List<Reservation> reservations = reservationService.getReservationsByCoachId(id);
+        return ResponseEntity.ok(reservations);
+    }
+
+
+
+
+
+
 }

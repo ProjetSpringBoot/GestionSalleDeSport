@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link for navigation
+import { useNavigate, Link } from 'react-router-dom';
 import Navbar from './NavBar';
-import axios from 'axios'; // For API requests
+import axios from 'axios';
 
 const ListeCoachs = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage login status
-  const [coachs, setCoachs] = useState([]); // State to store fetched coaches
-  const [loading, setLoading] = useState(true); // State to handle loading state
-  const [error, setError] = useState(null); // State to handle error messages
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [coachs, setCoachs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  // Check login status when component mounts
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
   }, []);
 
-  // Fetch coach data from backend API
   useEffect(() => {
     const fetchCoaches = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        const response = await axios.get('http://localhost:9070/api/coaches/all'); // Use the correct backend URL
+        const response = await axios.get('http://localhost:9070/api/coaches/all');
         setCoachs(response.data);
       } catch (err) {
         console.error('Failed to fetch coaches:', err);
@@ -37,12 +35,20 @@ const ListeCoachs = () => {
     fetchCoaches();
   }, []);
 
-  const handleReserveSession = () => {
-    if (isLoggedIn) {
-      navigate('/ShoppingCart');
-    } else {
-      navigate('/login'); 
-    }
+  const handleReserveSession = (coach) => {
+    const newReservation = {
+      id: Math.random().toString(36).substr(2, 9),
+      name: coach.username,
+      description: `Reservation with ${coach.username}`,
+      final_product: 'Pending',
+    };
+
+    const existingReservations =
+      JSON.parse(localStorage.getItem('reservations')) || [];
+    existingReservations.push(newReservation);
+    localStorage.setItem('reservations', JSON.stringify(existingReservations));
+
+    navigate('/shoppingCart'); // Navigate to ShoppingCart page
   };
 
   if (loading) {
@@ -68,14 +74,7 @@ const ListeCoachs = () => {
 
             <Row className="mx-0 gap-4">
               {coachs.map((member, index) => (
-                <Col
-                  key={index}
-                  xs={12}
-                  sm={6}
-                  md={6}
-                  lg={3}
-                  className="mb-8"
-                >
+                <Col key={index} xs={12} sm={6} md={6} lg={3} className="mb-8">
                   <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl overflow-hidden bg-white w-full p-4">
                     <Card.Body className="text-center">
                       <Card.Title className="text-xl font-bold text-gray-800 mb-2">
@@ -90,14 +89,12 @@ const ListeCoachs = () => {
                             View Profile
                           </button>
                         </Link>
-                        {isLoggedIn && (
-                          <button
-                            onClick={handleReserveSession}
-                            className="px-6 py-2 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600 transition-colors duration-300"
-                          >
-                            Reserve Private Session
-                          </button>
-                        )}
+                        <button
+                          onClick={() => handleReserveSession(member)}
+                          className="px-6 py-2 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600 transition-colors duration-300"
+                        >
+                          Reserve Private Session
+                        </button>
                       </div>
                     </Card.Body>
                   </Card>

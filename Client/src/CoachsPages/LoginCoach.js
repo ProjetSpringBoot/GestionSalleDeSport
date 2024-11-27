@@ -24,7 +24,7 @@ function Login() {
       localStorage.setItem('token', response.data.token);
   
       // Redirect to user dashboard or home
-      navigate('/CoachHome');
+      navigate('/Coach');
     } catch (err) {
       console.error('Login error:', err);
       setError('Invalid email or password');

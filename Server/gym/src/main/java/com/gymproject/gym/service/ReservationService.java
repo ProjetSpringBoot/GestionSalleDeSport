@@ -58,4 +58,10 @@ public class ReservationService {
 
         return true; // Assume notification succeeded
     }
+
+
+    public List<Reservation> getReservationsByCoachId(Long coachId) {
+        return reservationRepository.findByCoachId(coachId);
+    }
+
 }

@@ -28,6 +28,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/gym/all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/gym/*").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/requests").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/reservations/Coach/{id}").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/reservations").permitAll()
+
                         // Require authentication for all other requests
                         .anyRequest().authenticated()
                 )

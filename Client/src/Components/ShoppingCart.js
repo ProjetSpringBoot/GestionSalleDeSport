@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Card } from 'react-bootstrap';
 import Navbar from './NavBar';
 import TrashIcon from '../drawable/trash-can.png';
 import pencilIcon from '../drawable/pencil.png';
+
+
 
 const CheckoutSummary = () => {
   return (
@@ -13,7 +15,7 @@ const CheckoutSummary = () => {
           
           <div className="space-y-2 mb-4">
             <div className="flex justify-between items-center">
-              <span className="text-gray-700">Products</span>
+              {/*<span className="text-gray-700">Products</span>*/}
               <span className="text-gray-900">${53.98}</span>
             </div>
             
@@ -43,26 +45,23 @@ const CheckoutSummary = () => {
 };
 
 const ShoppingCart = () => {
-  const [products, setProducts] = useState([
-    { id: 1, name: 'Produit 1', description: 'Description du produit 1', price: 10 },
-    { id: 2, name: 'Produit 2', description: 'Description du produit 2', price: 20 },
-    { id: 3, name: 'Produit 3', description: 'Description du produit 3', price: 30 }
-  ]);
+  const [reservations, setReservations] = useState([]);
 
-  const handleDelete = (id) => {
-    setProducts(products.filter(product => product.id !== id));
+  useEffect(() => {
+    const savedReservations = JSON.parse(localStorage.getItem('reservations')) || [];
+    setReservations(savedReservations);
+  }, []);
+
+  const removeReservation = (id) => {
+    const updatedReservations = reservations.filter((res) => res.id !== id);
+    setReservations(updatedReservations);
+    localStorage.setItem('reservations', JSON.stringify(updatedReservations));
   };
 
-  const handleUpdate = (id) => {
-    alert(`Mettre à jour le produit avec ID ${id}`);
-  };
 
-  const handleBuy = () => {
-    alert('Achats effectués!');
-  };
 
   // Calculate the total price of all products in the cart
-  const totalPrice = products.reduce((total, product) => total + product.price, 0);
+ // const totalPrice = products.reduce((total, product) => total + product.price, 0);
 
   return (
     <div>
@@ -74,7 +73,7 @@ const ShoppingCart = () => {
             
             {/* Create a container for the total price */}
             <div className="total-container mb-3">
-              <h3 className="total-title">Total: ${totalPrice}</h3>
+              <h3 className="total-title">Total: </h3>
             </div>
 
             <div className="table-container">
@@ -87,39 +86,45 @@ const ShoppingCart = () => {
                 >
                   <thead className="text-black">
                     <tr>
-                      <th>ID</th>
-                      <th>Nom Produit</th>
+                      <th>Nom Coach</th>
                       <th>Description</th>
+                      {/*<th>Specialization</th>*/}
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {products.map(product => (
-                      <tr key={product.id} className="hover-table-row">
-                        <td>{product.id}</td>
-                        <td>{product.name}</td>
-                        <td>{product.description}</td>
-                        <td>
-                          <button className="update-btn me-2" onClick={() => handleUpdate(product.id)}>
+                  {reservations.length > 0 ? (
+                  reservations.map((reservation) => (
+                    <tr key={reservation.id}>
+                      <td>{reservation.name}</td>
+                      <td>{reservation.description}</td>
+                      {/*<td>{reservation.specialization}</td>   This is where specialization is shown */}
+                      <td>
+                          <button className="update-btn me-2" >
                             <img src={pencilIcon} alt="Mettre à jour" className="delete-icon" />
                           </button>
                           
-                          <button className="custom-delete-btn" onClick={() => handleDelete(product.id)}>
+                          <button className="custom-delete-btn" onClick={() => removeReservation(reservation.id)}>
                             <img src={TrashIcon} alt="Supprimer" className="delete-icon icon-spacing" />
                           </button>
                         </td>
                       </tr>
-                    ))}
+                    )) ) : (
+                      <tr>
+                        <td colSpan="4">No reservations found</td>
+                      </tr>
+                    )}
+          
                   </tbody>
                 </Table>
-                {/* Buy Now button placed below the table */}
+                {/* Buy Now button placed below the table 
                 <Button 
                   variant="primary" 
                   className="mt-3 custom-buy-btn"
                   onClick={handleBuy}
                 >
                   Buy Now
-                </Button>
+                </Button>*/}
             </div>
           </div>
 

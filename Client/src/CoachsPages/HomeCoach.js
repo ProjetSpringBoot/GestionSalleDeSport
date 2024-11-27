@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './navs/Header';
 import Sidebar from './navs/Sidebar';
 import { motion } from 'framer-motion';
@@ -6,22 +6,49 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 export default function HomeCoach() {
-  const [demandes, setDemandes] = useState([
-    { id: 1, type: 'Type 1', description: 'Description 1', status: 'En cours', final_product: 'Non défini' },
-    { id: 2, type: 'Type 2', description: 'Description 2', status: 'En attente', final_product: 'Non défini' },
-  ]);
+  const [demandes, setDemandes] = useState([]);  // Default to empty array
+  const [demandesTerminees, setDemandesTerminees] = useState([]);  // Default to empty array
+  const [loading, setLoading] = useState(true);  // State for loading
 
-  const updateFinalProduct = (id, final_product) => {
-    setDemandes((prevDemandes) =>
-      prevDemandes.map((demande) =>
-        demande.id === id ? { ...demande, final_product } : demande
-      )
-    );
+  const idCoach = 1; // Set your coach's ID here
+
+  // Define fetchData function outside of useEffect
+  const fetchData = async () => {
+    try {
+      // Fetch reservations for the coach
+      const response = await axios.get(`http://localhost:9070/api/reservations/Coach/${idCoach}`);
+      const data = response.data;
+
+      // Assuming the API returns data in a way that categorizes them into demandes and demandesTerminees
+      setDemandes(data.demandes || []);  // Ensure data.demandes is an array
+      setDemandesTerminees(data.demandesTerminees || []);  // Ensure data.demandesTerminees is an array
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);  // Stop loading after data fetch
+    }
   };
 
-  const demandesTerminees = demandes.filter(
-    (demande) => demande.final_product === 'Terminé'
-  );
+  // Fetch data when component mounts
+  useEffect(() => {
+    fetchData();
+  }, [idCoach]);  // Re-run the effect if idCoach changes
+
+  // Update Final Product status
+  const updateFinalProduct = async (demandeId, status) => {
+    try {
+      const updatedDemande = { final_product: status };
+      await axios.put(`http://localhost:9070/api/reservations/${demandeId}`, updatedDemande);
+      // Re-fetch data to update the table after status update
+      fetchData();
+    } catch (error) {
+      console.error('Error updating final product:', error);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;  // Show loading indicator while data is being fetched
+  }
 
   return (
     <div>
@@ -41,10 +68,8 @@ export default function HomeCoach() {
           <table className="table table-bordered">
             <thead className="thead-dark">
               <tr>
-                <th>ID</th>
-                <th>Type</th>
+                <th>Name</th>
                 <th>Description</th>
-                <th>Status</th>
                 <th>Final Product</th>
                 <th>Actions</th>
               </tr>
@@ -53,10 +78,8 @@ export default function HomeCoach() {
               {demandes.length > 0 ? (
                 demandes.map((demande) => (
                   <tr key={demande.id}>
-                    <td>{demande.id}</td>
-                    <td>{demande.type}</td>
+                    <td>{demande.name}</td>
                     <td>{demande.description}</td>
-                    <td>{demande.status}</td>
                     <td>{demande.final_product || 'Non défini'}</td>
                     <td>
                       <button
@@ -76,7 +99,7 @@ export default function HomeCoach() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="text-center">
+                  <td colSpan="4" className="text-center">
                     Aucune demande trouvée.
                   </td>
                 </tr>
@@ -99,9 +122,8 @@ export default function HomeCoach() {
             <thead className="thead-dark">
               <tr>
                 <th>ID</th>
-                <th>Type</th>
+                <th>Name</th>
                 <th>Description</th>
-                <th>Status</th>
                 <th>Final Product</th>
               </tr>
             </thead>
@@ -110,15 +132,14 @@ export default function HomeCoach() {
                 demandesTerminees.map((demande) => (
                   <tr key={demande.id}>
                     <td>{demande.id}</td>
-                    <td>{demande.type}</td>
+                    <td>{demande.name}</td>
                     <td>{demande.description}</td>
-                    <td>{demande.status}</td>
                     <td>{demande.final_product || 'Non défini'}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="text-center">
+                  <td colSpan="4" className="text-center">
                     Aucune demande terminée trouvée.
                   </td>
                 </tr>

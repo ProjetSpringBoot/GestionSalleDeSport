@@ -44,7 +44,10 @@ const Sidebar = () => {
         </Link>
         <Link to="/logout" style={navLinkStyle}>
           <FaSignOutAlt className="mr-2" /> Déconnexion
+          
         </Link>
+
+        
       </Nav>
     </div>
   );
