@@ -14,7 +14,7 @@ import SignupClient from './ClientPages/SignupClient';
 import ProductPage from './Components/ProductPage';
 import ShoppingCart from './Components/ShoppingCart';
 import ListeCoachs from './Components/ListeCoachs';
-import ProfilCoach from './Components/ProfilCoach';
+import ProfilCoach from './CoachsPages/ProfilCoach';
 import Join from './Components/Join';
 import Coach from './CoachsPages/HomeCoach';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaTachometerAlt, FaClipboardList, FaFileInvoiceDollar, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { FaTachometerAlt, FaUser, FaFileInvoiceDollar, FaCog, FaSignOutAlt } from 'react-icons/fa';
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const Sidebar = () => {
     // Optionally, clear any other session data or user-specific data
 
     // Redirect to the login page or home page
-    navigate('/LoginCoach'); // Or you can navigate to '/' for the home page
+    navigate('/Join'); // Or you can navigate to '/' for the home page
   };
 
   const navLinkStyle = {
@@ -41,18 +41,20 @@ const Sidebar = () => {
       </div>
 
       <Nav className="flex-column">
-        <Link to="/" style={navLinkStyle}>
+        <Link to="/coach" style={navLinkStyle}>
           <FaTachometerAlt className="mr-2" /> Tableau de bord
         </Link>
-        <Link to="/progression" style={navLinkStyle}>
-          <FaClipboardList className="mr-2" /> Progression
+        <Link to="/ProfilCoach" style={navLinkStyle}>
+          <FaUser className="mr-2" /> Profil
         </Link>
+        {/* 
         <Link to="/factures" style={navLinkStyle}>
           <FaFileInvoiceDollar className="mr-2" /> Factures
         </Link>
         <Link to="/parametres" style={navLinkStyle}>
           <FaCog className="mr-2" /> Paramètres
         </Link>
+        */}
         <span onClick={handleLogout} style={navLinkStyle}>
           <FaSignOutAlt className="mr-2" /> Déconnexion
         </span>

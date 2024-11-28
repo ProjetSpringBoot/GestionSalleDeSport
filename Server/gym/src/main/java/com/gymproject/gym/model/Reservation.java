@@ -34,11 +34,6 @@ public class Reservation {
     @Column(nullable = false, length = 50)
     private ReservationStatus status;
 
-    @FutureOrPresent
-    @NotNull
-    @Column(nullable = false)
-    private LocalDateTime requestedDate;
-
     @Column(length = 500)
     private String description;
 
@@ -74,14 +69,6 @@ public class Reservation {
 
     public void setStatus(ReservationStatus status) {
         this.status = status;
-    }
-
-    public LocalDateTime getRequestedDate() {
-        return requestedDate;
-    }
-
-    public void setRequestedDate(LocalDateTime requestedDate) {
-        this.requestedDate = requestedDate;
     }
 
     public String getDescription() {

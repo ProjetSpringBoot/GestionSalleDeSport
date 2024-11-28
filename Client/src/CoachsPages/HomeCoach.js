@@ -4,50 +4,104 @@ import Sidebar from './navs/Sidebar';
 import { motion } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import jwtDecode from 'jwt-decode'; // Install with `npm install jwt-decode`
 
 export default function HomeCoach() {
-  const [demandes, setDemandes] = useState([]);  // Default to empty array
-  const [demandesTerminees, setDemandesTerminees] = useState([]);  // Default to empty array
-  const [loading, setLoading] = useState(true);  // State for loading
+  const [demandes, setDemandes] = useState([]);
+  const [demandesTerminees, setDemandesTerminees] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [coachEmail, setCoachEmail] = useState(null); // State for the logged-in coach's email
 
-  const idCoach = 1; // Set your coach's ID here
+  // Function to fetch and decode token
+  const fetchCoachEmailFromToken = () => {
+    const token = localStorage.getItem('token'); // Assume token is stored in localStorage
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log('Decoded Token:', decoded); // Log the decoded token to check its structure
+        return decoded.sub; // Use the 'sub' field (email) from the token
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+    return null;
+  };
 
-  // Define fetchData function outside of useEffect
+  // Function to fetch data from the API
   const fetchData = async () => {
     try {
-      // Fetch reservations for the coach
-      const response = await axios.get(`http://localhost:9070/api/reservations/Coach/${idCoach}`);
+      setLoading(true);
+
+      if (!coachEmail) return; // Ensure coachEmail is set before making requests
+
+      const response = await axios.get(`http://localhost:9070/api/reservations/Coach/${coachEmail}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`, // Add token to the request headers
+        },
+      });
+
       const data = response.data;
 
-      // Assuming the API returns data in a way that categorizes them into demandes and demandesTerminees
-      setDemandes(data.demandes || []);  // Ensure data.demandes is an array
-      setDemandesTerminees(data.demandesTerminees || []);  // Ensure data.demandesTerminees is an array
+      setDemandes(data.demandes || []);
+      setDemandesTerminees(data.demandesTerminees || []);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
-      setLoading(false);  // Stop loading after data fetch
+      setLoading(false);
     }
   };
-
-  // Fetch data when component mounts
-  useEffect(() => {
-    fetchData();
-  }, [idCoach]);  // Re-run the effect if idCoach changes
 
   // Update Final Product status
   const updateFinalProduct = async (demandeId, status) => {
     try {
-      const updatedDemande = { final_product: status };
-      await axios.put(`http://localhost:9070/api/reservations/${demandeId}`, updatedDemande);
-      // Re-fetch data to update the table after status update
-      fetchData();
+      await axios.put(
+        `http://localhost:9070/api/reservations/${demandeId}`,
+        { final_product: status },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`, // Add token for authorization
+          },
+        }
+      );
+      fetchData(); // Refresh data after update
     } catch (error) {
       console.error('Error updating final product:', error);
     }
   };
 
+  // Fetch the coach email and reservations when the component mounts
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log('Decoded Token:', decoded); // Log the decoded token to check its structure
+        const coachEmail = decoded.sub;
+
+        if (coachEmail) {
+          setCoachEmail(coachEmail);
+        } else {
+          console.error('No coach email found in the token');
+        }
+
+        const coachName = decoded.sub || 'Coach';
+        alert(`Welcome ${coachName}`);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    } else {
+      console.error('No token found in localStorage');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (coachEmail) {
+      fetchData(); // Fetch data only after coachEmail is set
+    }
+  }, [coachEmail]);
+
   if (loading) {
-    return <div>Loading...</div>;  // Show loading indicator while data is being fetched
+    return <div>Loading...</div>;
   }
 
   return (
